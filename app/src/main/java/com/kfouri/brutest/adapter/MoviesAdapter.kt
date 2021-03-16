@@ -1,12 +1,11 @@
 package com.kfouri.brutest.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kfouri.brutest.GlideApp
+import com.bumptech.glide.Glide
 import com.kfouri.brutest.R
 import com.kfouri.brutest.model.Genres
 import com.kfouri.brutest.model.Movie
@@ -44,7 +43,7 @@ class MoviesAdapter(val context: Context, private val clickListener: (Movie) -> 
 
     class MovieViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         fun bind(genresList: ArrayList<Genres>, movie: Movie, clickListener: (Movie) -> Unit, context: Context){
-            GlideApp.with(context)
+            Glide.with(context)
                 .load(IMAGES_URL + movie.posterPath)
                 .placeholder(R.drawable.loading_image)
                 .error(R.drawable.damaged_image)
