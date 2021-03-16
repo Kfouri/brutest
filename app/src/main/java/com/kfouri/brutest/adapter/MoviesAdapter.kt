@@ -1,0 +1,64 @@
+package com.kfouri.brutest.adapter
+
+import android.content.Context
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.kfouri.brutest.GlideApp
+import com.kfouri.brutest.R
+import com.kfouri.brutest.model.Genres
+import com.kfouri.brutest.model.Movie
+import com.kfouri.brutest.util.IMAGES_URL
+import kotlinx.android.synthetic.main.movie_item.view.*
+
+class MoviesAdapter(val context: Context, private val clickListener: (Movie) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var list = ArrayList<Movie>()
+    private var genresList = ArrayList<Genres>()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false))
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = list[position]
+        (holder as MovieViewHolder).bind(genresList, item, clickListener, context)
+    }
+
+    fun setData(newList: ArrayList<Movie>) {
+        list.clear()
+        list.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun setGenresData(newList: ArrayList<Genres>) {
+        genresList.clear()
+        genresList.addAll(newList)
+    }
+
+    class MovieViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(genresList: ArrayList<Genres>, movie: Movie, clickListener: (Movie) -> Unit, context: Context){
+            GlideApp.with(context)
+                .load(IMAGES_URL + movie.posterPath)
+                .placeholder(R.drawable.loading_image)
+                .error(R.drawable.damaged_image)
+                .centerCrop()
+                .into(itemView.imageView_poster)
+
+            itemView.textView_title.text = movie.title
+            genresList.forEach {
+                if (it.id == movie.genreIds[0]) {
+                    itemView.textView_category.text = it.name
+                }
+            }
+            itemView.setOnClickListener { clickListener(movie) }
+        }
+    }
+
+}

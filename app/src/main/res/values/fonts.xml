@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="TextStyle3">
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:fontFamily">@font/sfns_text</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">24sp</item>
+    <item name="android:letterSpacing">-0.02</item>
+    <item name="android:textColor">@color/ice_blue</item>
+  </style>
+
+  <style name="TextStyle2">
+    <item name="android:fontFamily">@font/sfui_text</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:letterSpacing">-0.01</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+
+  <style name="TextStyle5">
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:fontFamily">@font/sfns_text_medium</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">17sp</item>
+    <item name="android:letterSpacing">-0.02</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+
+  <style name="TextStyle6">
+    <item name="android:fontFamily">@font/sfns_text</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:letterSpacing">-0.02</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+
+  <style name="TextStyle4">
+    <item name="android:fontFamily">@font/sfui_text</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:letterSpacing">-0.01</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+
+  <style name="TextStyle8">
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:fontFamily">@font/sfns_text</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:letterSpacing">-0.05</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+
+  <style name="TextStyle">
+    <item name="android:fontFamily">@font/proxima_nova_soft_medium</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+
+  <style name="TextStyle7">
+    <item name="android:fontFamily">@font/sfui_text_medium</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:letterSpacing">-0.01</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+</resources>
