@@ -86,6 +86,8 @@ class DetailFragment: Fragment() {
     private fun showDetail(data: DetailResponse) {
         textView_title.text = data.title
 
+        var dominatorColor = 0
+
         activity?.applicationContext?.let {
             Glide.with(it)
                 .load(IMAGES_URL + data.posterPath)
@@ -108,10 +110,12 @@ class DetailFragment: Fragment() {
                     ): Boolean {
                         Palette.Builder((resource as BitmapDrawable).bitmap).generate {pal ->
                             pal?.let { palette ->
-                                val dominantColor = palette.getDominantColor(
+                                dominatorColor = palette.getDominantColor(
                                     ContextCompat.getColor(context!!,R.color.white)
                                 )
-                                scrollView_container.setBackgroundColor(dominantColor)
+                                Log.d("Kafu", "Color: "+dominatorColor)
+                                //mainContainer.setBackgroundColor(dominantColor)
+                                //setColorFilter(ContextCompat.getColor(context, R.color.yourcolor), android.graphics.PorterDuff.Mode.MULTIPLY);
                             }
                         }
                         return false
@@ -121,6 +125,40 @@ class DetailFragment: Fragment() {
                 .error(R.drawable.damaged_image)
                 .centerCrop()
                 .into(imageView_poster)
+
+            Glide.with(it)
+                .load(IMAGES_URL + data.backdropPath)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: com.bumptech.glide.request.target.Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Palette.Builder((resource as BitmapDrawable).bitmap).generate {pal ->
+                            pal?.let { palette ->
+                                dominatorColor = palette.getDominantColor(
+                                    ContextCompat.getColor(context!!,R.color.white)
+                                )
+                                //mainContainer.setBackgroundColor(dominantColor)
+                                viewColor.setBackgroundColor(dominatorColor);
+                            }
+                        }
+                        return false
+                    }
+                })
+                .centerCrop()
+                .into(imageView_backPoster)
         }
 
         textView_releaseDate.text = data.releaseDate
