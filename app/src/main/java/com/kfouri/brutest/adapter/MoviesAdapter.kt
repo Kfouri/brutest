@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kfouri.brutest.R
@@ -28,6 +29,7 @@ class MoviesAdapter(val context: Context, private val clickListener: (Movie) -> 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = list[position]
         (holder as MovieViewHolder).bind(genresList, item, clickListener, context)
+        holder.itemView.item_parent.animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.list_item_animation)
     }
 
     fun setData(newList: ArrayList<Movie>) {
