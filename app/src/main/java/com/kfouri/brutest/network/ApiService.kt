@@ -15,5 +15,5 @@ interface ApiService {
     suspend fun getGenres(): GenresResponse
 
     @GET("3/movie/{id}?api_key=$APIKEY&language=es-ES")
-    suspend fun getMovieDetail(@Path("id") id: Int): DetailResponse
+    suspend fun getMovieDetail(@Path("id") id: Long): DetailResponse
 }

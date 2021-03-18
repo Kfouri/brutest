@@ -1,5 +1,6 @@
 package com.kfouri.brutest.ui
 
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -14,13 +15,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
+import androidx.room.Database
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.engine.Resource
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.kfouri.brutest.R
+import com.kfouri.brutest.adapter.MoviesAdapter
+import com.kfouri.brutest.database.DatabaseBuilder
+import com.kfouri.brutest.database.DatabaseHelper
+import com.kfouri.brutest.database.DatabaseHelperImpl
 import com.kfouri.brutest.model.DetailResponse
+import com.kfouri.brutest.model.Movie
 import com.kfouri.brutest.network.ApiBuilder
 import com.kfouri.brutest.network.ApiHelper
 import com.kfouri.brutest.util.IMAGES_URL
@@ -34,8 +42,18 @@ class DetailFragment: Fragment() {
 
     private val TAG = "DetailFragment"
     private val args: DetailFragmentArgs by navArgs()
-    private var movieId = 0
+    private var movieId = 0L
     private lateinit var viewModel: DetailViewModel
+    private var mIsSubscribed = false
+    private lateinit var mMoviePoster: String
+
+    private val dbHelper by lazy {
+        activity?.applicationContext?.let {
+            DatabaseBuilder.getInstance(
+                it
+            )
+        }?.let { DatabaseHelperImpl(it)}
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,11 +62,11 @@ class DetailFragment: Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
-        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelper(ApiBuilder.apiService))).get(
+        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelper(ApiBuilder.apiService), dbHelper as DatabaseHelper)).get(
             DetailViewModel::class.java
         )
 
-        movieId = args.ID.toInt()
+        movieId = args.ID
 
         return view
     }
@@ -57,6 +75,8 @@ class DetailFragment: Fragment() {
         Log.d(TAG, "onViewCreated()")
 
         (requireActivity() as MainActivity).supportActionBar!!.hide()
+
+        viewModel.onSubscribed().observe(viewLifecycleOwner, Observer { isSubscribed -> updateButton(isSubscribed) })
 
         viewModel.getMovieDetail(movieId).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
@@ -81,12 +101,19 @@ class DetailFragment: Fragment() {
             activity?.onBackPressed();
         }
 
+        button_subscription.setOnClickListener {
+            viewModel.updateSubscription(movieId, !mIsSubscribed, mMoviePoster)
+        }
     }
 
     private fun showDetail(data: DetailResponse) {
         textView_title.text = data.title
 
-        var dominatorColor = 0
+        var dominatorColor: Int
+
+        viewModel.isSubscribed(movieId)
+
+        mMoviePoster = IMAGES_URL + data.posterPath
 
         activity?.applicationContext?.let {
             Glide.with(it)
@@ -113,9 +140,6 @@ class DetailFragment: Fragment() {
                                 dominatorColor = palette.getDominantColor(
                                     ContextCompat.getColor(context!!,R.color.white)
                                 )
-                                Log.d("Kafu", "Color: "+dominatorColor)
-                                //mainContainer.setBackgroundColor(dominantColor)
-                                //setColorFilter(ContextCompat.getColor(context, R.color.yourcolor), android.graphics.PorterDuff.Mode.MULTIPLY);
                             }
                         }
                         return false
@@ -150,7 +174,6 @@ class DetailFragment: Fragment() {
                                 dominatorColor = palette.getDominantColor(
                                     ContextCompat.getColor(context!!,R.color.white)
                                 )
-                                //mainContainer.setBackgroundColor(dominantColor)
                                 viewColor.setBackgroundColor(dominatorColor);
                             }
                         }
@@ -163,5 +186,18 @@ class DetailFragment: Fragment() {
 
         textView_releaseDate.text = data.releaseDate
         textView_detailOverview.text = data.overview
+    }
+
+    private fun updateButton(isSubscribed: Boolean) {
+        mIsSubscribed = isSubscribed
+        if (isSubscribed) {
+            button_subscription.text = "SUSCRIPTO"
+            button_subscription.background = resources.getDrawable(R.drawable.background_button_subscribed, null)
+        } else {
+            button_subscription.text = "SUSCRIBEME"
+            button_subscription.background = resources.getDrawable(R.drawable.background_button, null)
+        }
+
+
     }
 }

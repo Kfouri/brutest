@@ -13,7 +13,7 @@ import com.kfouri.brutest.model.Movie
 import com.kfouri.brutest.util.IMAGES_URL
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class MoviesAdapter(val context: Context, private val clickListener: (Movie) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesAdapter(val context: Context, private val clickListener: (Long) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var list = ArrayList<Movie>()
     private var genresList = ArrayList<Genres>()
@@ -44,7 +44,7 @@ class MoviesAdapter(val context: Context, private val clickListener: (Movie) -> 
     }
 
     class MovieViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(genresList: ArrayList<Genres>, movie: Movie, clickListener: (Movie) -> Unit, context: Context){
+        fun bind(genresList: ArrayList<Genres>, movie: Movie, clickListener: (Long) -> Unit, context: Context){
             Glide.with(context)
                 .load(IMAGES_URL + movie.posterPath)
                 .placeholder(R.drawable.loading_image)
@@ -58,7 +58,7 @@ class MoviesAdapter(val context: Context, private val clickListener: (Movie) -> 
                     itemView.textView_category.text = it.name
                 }
             }
-            itemView.setOnClickListener { clickListener(movie) }
+            itemView.setOnClickListener { clickListener(movie.id) }
         }
     }
 
