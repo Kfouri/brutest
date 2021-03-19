@@ -32,10 +32,6 @@ class MoviesAdapter(val context: Context, private val clickListener: (Long) -> U
         holder.itemView.item_parent.animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.list_item_animation)
     }
 
-    fun clearList() {
-        list.clear()
-    }
-
     fun setData(newList: ArrayList<Movie>) {
         val oldCount = list.size
         list.addAll(newList)

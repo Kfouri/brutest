@@ -83,7 +83,11 @@ class ListFragment : Fragment() {
 
         (requireActivity() as MainActivity).supportActionBar!!.show()
 
-        getGenres()
+        if (adapter?.itemCount == 0) {
+            getGenres()
+        } else {
+            progressBar.visibility = View.GONE
+        }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
