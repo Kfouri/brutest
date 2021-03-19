@@ -28,13 +28,13 @@ import com.kfouri.brutest.util.Status
 import com.kfouri.brutest.viewmodel.ListViewModel
 import com.kfouri.brutest.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_list.*
-import java.time.format.TextStyle
-
 
 class ListFragment : Fragment() {
 
     private val TAG = "ListFragment"
     private lateinit var viewModel: ListViewModel
+    private var currentPage = 1L
+    private var totalPages = 1L
 
     private val adapter by lazy {
         activity?.applicationContext?.let { MoviesAdapter(it) { idMovie: Long -> itemClicked(idMovie) } }
@@ -57,7 +57,7 @@ class ListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        Log.d("Kafu", "onCreateView()")
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         viewModel = ViewModelProvider(
             this, ViewModelFactory(
@@ -77,11 +77,26 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("Kafu", "onViewCreated()")
         setRecyclerViewMovies()
         setRecyclerViewSubscriptions()
 
         (requireActivity() as MainActivity).supportActionBar!!.show()
 
+        getGenres()
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
+    }
+
+    private fun getGenres() {
         viewModel.getGenres().observe(viewLifecycleOwner, Observer {
 
             it?.let { resource ->
@@ -90,6 +105,7 @@ class ListFragment : Fragment() {
                     }
                     Status.SUCCESS -> {
                         resource.data?.let { it ->
+                            getMovies()
                             setGenresData(it.genres)
                         }
                     }
@@ -100,8 +116,10 @@ class ListFragment : Fragment() {
                 }
             }
         })
+    }
 
-        viewModel.getMovies().observe(viewLifecycleOwner, Observer {
+    private fun getMovies() {
+        viewModel.getMovies(currentPage).observe(viewLifecycleOwner, Observer {
 
             it?.let { resource ->
                 when (resource.status) {
@@ -111,6 +129,7 @@ class ListFragment : Fragment() {
 
                         resource.data?.let { it ->
                             setData(it.results)
+                            totalPages = it.totalPages
                         }
                     }
                     Status.ERROR -> {
@@ -126,16 +145,6 @@ class ListFragment : Fragment() {
                 }
             }
         })
-
-        val onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                activity?.finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
     }
 
     private fun setRecyclerViewSubscriptions() {
@@ -168,10 +177,36 @@ class ListFragment : Fragment() {
     private fun setRecyclerViewMovies() {
         recyclerView_movies.setHasFixedSize(true)
         recyclerView_movies.adapter = adapter
+        recyclerView_movies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView_movies.canScrollVertically(1)) {
+                    if (currentPage <= totalPages) {
+                        currentPage += 1
+                        getMovies()
+                    }
+                }
+            }
+        })
     }
 
     private fun itemClicked(id: Long) {
         val action = ListFragmentDirections.actionOpenDetail(id)
         findNavController().navigate(action)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("Kafu", "onCreate()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("Kafu", "onResume()")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("Kafu", "onStart()")
     }
 }

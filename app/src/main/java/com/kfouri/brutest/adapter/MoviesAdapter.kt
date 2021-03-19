@@ -32,10 +32,14 @@ class MoviesAdapter(val context: Context, private val clickListener: (Long) -> U
         holder.itemView.item_parent.animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.list_item_animation)
     }
 
-    fun setData(newList: ArrayList<Movie>) {
+    fun clearList() {
         list.clear()
+    }
+
+    fun setData(newList: ArrayList<Movie>) {
+        val oldCount = list.size
         list.addAll(newList)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(oldCount, list.size)
     }
 
     fun setGenresData(newList: ArrayList<Genres>) {
@@ -47,7 +51,6 @@ class MoviesAdapter(val context: Context, private val clickListener: (Long) -> U
         fun bind(genresList: ArrayList<Genres>, movie: Movie, clickListener: (Long) -> Unit, context: Context){
             Glide.with(context)
                 .load(IMAGES_URL + movie.posterPath)
-                .placeholder(R.drawable.loading_image)
                 .error(R.drawable.damaged_image)
                 .centerCrop()
                 .into(itemView.imageView_poster)

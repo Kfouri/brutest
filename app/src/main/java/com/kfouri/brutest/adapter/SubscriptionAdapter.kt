@@ -39,7 +39,6 @@ class SubscriptionAdapter(val context: Context, private val clickListener: (Long
         fun bind(subscription: Subscription, clickListener: (Long) -> Unit, context: Context){
             Glide.with(context)
                 .load(subscription.poster)
-                .placeholder(R.drawable.loading_image)
                 .error(R.drawable.damaged_image)
                 .centerCrop()
                 .into(itemView.imageView_susbcriptionPoster)

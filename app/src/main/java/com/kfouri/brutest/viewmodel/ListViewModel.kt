@@ -13,10 +13,10 @@ class ListViewModel(private val apiRepository: ApiRepository, private val databa
 
     private val subscriptionsListLiveData = MutableLiveData<ArrayList<Subscription>>()
 
-    fun getMovies() = liveData(Dispatchers.IO) {
+    fun getMovies(page: Long) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = apiRepository.getMovies()))
+            emit(Resource.success(data = apiRepository.getMovies(page)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error getting movies..."))
         }

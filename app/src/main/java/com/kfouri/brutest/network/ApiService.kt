@@ -6,10 +6,11 @@ import com.kfouri.brutest.model.MovieResponse
 import com.kfouri.brutest.util.APIKEY
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
-    @GET("4/discover/movie?sort_by=popularity.desc&language=es-ES")
-    suspend fun getMovies(): MovieResponse
+    @GET("4/discover/movie?language=es-ES")
+    suspend fun getMovies(@Query("page") page: Long): MovieResponse
 
     @GET("3/genre/movie/list?api_key=$APIKEY&language=es-ES")
     suspend fun getGenres(): GenresResponse
