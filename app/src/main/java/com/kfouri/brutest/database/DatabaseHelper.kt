@@ -4,7 +4,7 @@ import com.kfouri.brutest.database.model.Subscription
 
 interface DatabaseHelper {
 
-    suspend fun getSubscription(id: Long): Subscription
+    suspend fun getSubscription(id: Long): Subscription?
 
     suspend fun getAllSubscriptions(): List<Subscription>
 

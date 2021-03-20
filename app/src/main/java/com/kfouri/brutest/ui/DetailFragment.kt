@@ -9,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import androidx.room.Database
@@ -72,8 +74,6 @@ class DetailFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated()")
-
         (requireActivity() as MainActivity).supportActionBar!!.hide()
 
         viewModel.onSubscribed().observe(viewLifecycleOwner, Observer { isSubscribed -> updateButton(isSubscribed) })
@@ -98,12 +98,23 @@ class DetailFragment: Fragment() {
         })
 
         imageView_backButton.setOnClickListener {
-            activity?.onBackPressed();
+            activity?.onBackPressed()
         }
 
         button_subscription.setOnClickListener {
             viewModel.updateSubscription(movieId, !mIsSubscribed, mMoviePoster)
         }
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = DetailFragmentDirections.actionSecondFragmentToFirstFragment()
+                findNavController().navigate(action)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+                viewLifecycleOwner,
+                onBackPressedCallback
+        )
     }
 
     private fun showDetail(data: DetailResponse) {

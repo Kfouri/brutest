@@ -57,7 +57,6 @@ class ListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("Kafu", "onCreateView()")
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         viewModel = ViewModelProvider(
             this, ViewModelFactory(
@@ -66,9 +65,7 @@ class ListFragment : Fragment() {
             )
         ).get(ListViewModel::class.java)
         viewModel.onSubscriptionsList().observe(viewLifecycleOwner, Observer { subscriptionsList ->
-            manageSubscriptionList(
-                subscriptionsList
-            )
+            manageSubscriptionList(subscriptionsList)
         })
         viewModel.getAllSubscriptions()
 
@@ -77,16 +74,14 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Kafu", "onViewCreated()")
+
         setRecyclerViewMovies()
         setRecyclerViewSubscriptions()
 
-        (requireActivity() as MainActivity).supportActionBar!!.show()
+        (requireActivity() as MainActivity).supportActionBar!!.hide()
 
         if (adapter?.itemCount == 0) {
             getGenres()
-        } else {
-            progressBar.visibility = View.GONE
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -98,6 +93,11 @@ class ListFragment : Fragment() {
             viewLifecycleOwner,
             onBackPressedCallback
         )
+
+        imageView_search.setOnClickListener {
+            val action = ListFragmentDirections.actionOpenSearch()
+            findNavController().navigate(action)
+        }
     }
 
     private fun getGenres() {
@@ -197,20 +197,5 @@ class ListFragment : Fragment() {
     private fun itemClicked(id: Long) {
         val action = ListFragmentDirections.actionOpenDetail(id)
         findNavController().navigate(action)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("Kafu", "onCreate()")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("Kafu", "onResume()")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("Kafu", "onStart()")
     }
 }

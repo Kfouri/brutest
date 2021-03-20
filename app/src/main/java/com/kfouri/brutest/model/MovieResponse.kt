@@ -14,4 +14,5 @@ data class Movie (
     @SerializedName("title") val title: String,
     @SerializedName("overview") val overview: String,
     @SerializedName("genre_ids") val genreIds: ArrayList<Int>,
+    @Transient var subscribed: Boolean
 )

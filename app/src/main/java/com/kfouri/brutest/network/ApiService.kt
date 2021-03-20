@@ -17,4 +17,7 @@ interface ApiService {
 
     @GET("3/movie/{id}?api_key=$APIKEY&language=es-ES")
     suspend fun getMovieDetail(@Path("id") id: Long): DetailResponse
+
+    @GET("3/search/movie?api_key=$APIKEY&language=es-ES")
+    suspend fun searchMovie(@Query("query") query: String): MovieResponse
 }

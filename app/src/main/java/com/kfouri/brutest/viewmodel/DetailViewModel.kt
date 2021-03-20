@@ -26,7 +26,7 @@ class DetailViewModel(private val apiRepository: ApiRepository, private val data
         viewModelScope.launch {
             var subscribed = false
             try {
-                subscribed = databaseHelper.getSubscription(id).subscribed
+                subscribed = databaseHelper.getSubscription(id)?.subscribed ?: false
             } catch (e: Exception) {
                 //Does not exists in database, that means this movie is not subscribed.
             }
