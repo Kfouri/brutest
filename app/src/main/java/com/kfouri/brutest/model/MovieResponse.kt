@@ -3,9 +3,9 @@ package com.kfouri.brutest.model
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse (
-    @SerializedName("page") val page: Long,
-    @SerializedName("results") val results: ArrayList<Movie>,
-    @SerializedName("total_pages") val totalPages: Long,
+        @SerializedName("page") val page: Long,
+        @SerializedName("results") var results: ArrayList<Movie>,
+        @SerializedName("total_pages") val totalPages: Long,
 )
 
 data class Movie (

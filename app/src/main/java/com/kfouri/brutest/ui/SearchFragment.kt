@@ -11,9 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.kfouri.brutest.R
 import com.kfouri.brutest.adapter.SearchAdapter
 import com.kfouri.brutest.database.DatabaseBuilder
@@ -44,7 +43,7 @@ class SearchFragment: Fragment() {
     }
 
     private val adapter by lazy {
-        activity?.applicationContext?.let { SearchAdapter(it) { idMovie: Long -> itemClicked(idMovie) } }
+        activity?.applicationContext?.let { SearchAdapter(it) { movie: Movie -> subscriptionClicked(movie) } }
     }
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -54,7 +53,6 @@ class SearchFragment: Fragment() {
         return view
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -63,6 +61,7 @@ class SearchFragment: Fragment() {
         textView_cancelSearch.setOnClickListener {
             activity?.onBackPressed()
         }
+
         editText_search.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -79,19 +78,24 @@ class SearchFragment: Fragment() {
                     timer = Timer()
                     timer?.schedule(object: TimerTask() {
                         override fun run() {
-                            Handler(Looper.getMainLooper()).post { getMovies(editable.toString()) }
+                            Handler(Looper.getMainLooper()).post {
+                                adapter?.clearData()
+                                getMovies(editable.toString())
+                            }
                         }
                     }, 800)
                 } else {
+                    currentPage = 1
+                    totalPages = 1
                     adapter?.clearData()
                 }
             }
-
         })
+
     }
 
     private fun getMovies(query: String) {
-        viewModel.searchMovie(query).observe(viewLifecycleOwner, Observer {
+        viewModel.searchMovie(query, currentPage).observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -99,8 +103,8 @@ class SearchFragment: Fragment() {
                         progressBar.visibility = View.GONE
 
                         resource.data?.let { data ->
-                            adapter?.setData(data)
-                            //totalPages = data.totalPages
+                            adapter?.setData(data.results)
+                            totalPages = data.totalPages
                         }
 
                     }
@@ -122,24 +126,30 @@ class SearchFragment: Fragment() {
     private fun setRecyclerViewMovies() {
         recyclerView_search.setHasFixedSize(true)
         recyclerView_search.adapter = adapter
-        /*
-        recyclerView_movies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        recyclerView_search.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView_movies.canScrollVertically(1)) {
-                    if (currentPage <= totalPages) {
-                        currentPage += 1
-                        getMovies()
+                adapter?.itemCount?.let { count ->
+                    if (!recyclerView_search.canScrollVertically(1) && count > 0) {
+                        if (currentPage <= totalPages) {
+                            currentPage += 1
+                            getMovies(editText_search.text.toString())
+                        }
+                    } else {
+                        currentPage = 1
+                        totalPages = 1
                     }
+                } ?: run {
+                    currentPage = 1
+                    totalPages = 1
                 }
             }
         })
-
-         */
     }
 
-    private fun itemClicked(id: Long) {
-        val action = SearchFragmentDirections.actionSearchFragmentToDetailFragment(id)
-        findNavController().navigate(action)
+    private fun subscriptionClicked(movie: Movie) {
+        viewModel.updateSubscription(movie)
     }
+
 }

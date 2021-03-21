@@ -1,6 +1,5 @@
 package com.kfouri.brutest.ui
 
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -17,20 +16,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
-import androidx.room.Database
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.engine.Resource
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.kfouri.brutest.R
-import com.kfouri.brutest.adapter.MoviesAdapter
 import com.kfouri.brutest.database.DatabaseBuilder
 import com.kfouri.brutest.database.DatabaseHelper
 import com.kfouri.brutest.database.DatabaseHelperImpl
 import com.kfouri.brutest.model.DetailResponse
-import com.kfouri.brutest.model.Movie
 import com.kfouri.brutest.network.ApiBuilder
 import com.kfouri.brutest.network.ApiHelper
 import com.kfouri.brutest.util.IMAGES_URL
@@ -76,7 +71,7 @@ class DetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (requireActivity() as MainActivity).supportActionBar!!.hide()
 
-        viewModel.onSubscribed().observe(viewLifecycleOwner, Observer { isSubscribed -> updateButton(isSubscribed) })
+        viewModel.onSubscribed().observe(viewLifecycleOwner, { isSubscribed -> updateButton(isSubscribed) })
 
         viewModel.getMovieDetail(movieId).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
