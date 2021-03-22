@@ -68,9 +68,9 @@ class SearchAdapter(val context: Context, private val clickListener: (Movie) -> 
             itemView.button_subscriptionSearch.setOnClickListener {
                 clickListener(movie)
                 movie.subscribed = !movie.subscribed
-                itemView.button_subscriptionSearch.text = if (movie.subscribed) "Agregado" else "Agregar"
+                itemView.button_subscriptionSearch.text = if (movie.subscribed) context.getString(R.string.adapter_search_added) else context.getString(R.string.adapter_search_add)
             }
-            itemView.button_subscriptionSearch.text = if (movie.subscribed) "Agregado" else "Agregar"
+            itemView.button_subscriptionSearch.text = if (movie.subscribed) context.getString(R.string.adapter_search_added) else context.getString(R.string.adapter_search_add)
             itemView.setOnClickListener {
                 val action = SearchFragmentDirections.actionSearchFragmentToDetailFragment(movie.id)
                 Navigation.findNavController(itemView).navigate(action)

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -197,11 +198,11 @@ class DetailFragment: Fragment() {
     private fun updateButton(isSubscribed: Boolean) {
         mIsSubscribed = isSubscribed
         if (isSubscribed) {
-            button_subscription.text = "SUSCRIPTO"
-            button_subscription.background = resources.getDrawable(R.drawable.background_button_subscribed, null)
+            button_subscription.text = getString(R.string.added_subscription)
+            button_subscription.background = context?.resources?.let { ResourcesCompat.getDrawable(it, R.drawable.background_button_subscribed, null) }
         } else {
-            button_subscription.text = "SUSCRIBEME"
-            button_subscription.background = resources.getDrawable(R.drawable.background_button, null)
+            button_subscription.text = getString(R.string.add_subscription)
+            button_subscription.background = context?.resources?.let { ResourcesCompat.getDrawable(it, R.drawable.background_button, null) }
         }
 
 

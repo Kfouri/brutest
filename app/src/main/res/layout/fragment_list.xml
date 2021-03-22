@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TV Show Reminder"
+            android:text="@string/tv_show_reminder"
             style="@style/TextStyle5"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
@@ -35,9 +35,6 @@
 
     </LinearLayout>
 
-
-
-
     <TextView
         android:id="@+id/textView_subscription"
         style="@style/TextStyle"
@@ -45,7 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="SUSCRIPTAS"
+        android:text="@string/fragment_list_subscribed_title"
+        android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
 
@@ -67,7 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="TODAS"
+        android:text="@string/fragment_list_all_title"
+        android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_subscription" />
 

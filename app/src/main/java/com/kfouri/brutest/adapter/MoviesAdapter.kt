@@ -1,6 +1,8 @@
 package com.kfouri.brutest.adapter
 
 import android.content.Context
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.kfouri.brutest.model.Genres
 import com.kfouri.brutest.model.Movie
 import com.kfouri.brutest.util.IMAGES_URL
 import kotlinx.android.synthetic.main.movie_item.view.*
+
 
 class MoviesAdapter(val context: Context, private val clickListener: (Long) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -43,7 +46,7 @@ class MoviesAdapter(val context: Context, private val clickListener: (Long) -> U
         genresList.addAll(newList)
     }
 
-    class MovieViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(genresList: ArrayList<Genres>, movie: Movie, clickListener: (Long) -> Unit, context: Context){
             Glide.with(context)
                 .load(IMAGES_URL + movie.posterPath)
@@ -58,6 +61,11 @@ class MoviesAdapter(val context: Context, private val clickListener: (Long) -> U
                 }
             }
             itemView.setOnClickListener { clickListener(movie.id) }
+
+            val colorMatrix = ColorMatrix()
+            colorMatrix.setSaturation(0f)
+            val filter = ColorMatrixColorFilter(colorMatrix)
+            itemView.imageView_poster.colorFilter = filter
         }
     }
 
