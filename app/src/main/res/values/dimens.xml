@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fragment_detail_imageView_backButton_marginStart">13dp</dimen>
+    <dimen name="fragment_detail_imageView_backButton_marginTop">25dp</dimen>
+    <dimen name="fragment_detail_imageView_poster_width">180dp</dimen>
+    <dimen name="fragment_detail_imageView_poster_height">270dp</dimen>
+    <dimen name="fragment_detail_imageView_marginTop">43dp</dimen>
+    <dimen name="fragment_detail_textView_title_marginTop">23dp</dimen>
+    <dimen name="fragment_detail_textView_releaseDate_marginTop">2dp</dimen>
+    <dimen name="fragment_detail_button_subscription_marginTop">22dp</dimen>
+    <dimen name="fragment_detail_button_subscription_paddingStart">43dp</dimen>
+    <dimen name="fragment_detail_button_subscription_paddingTop">14dp</dimen>
+    <dimen name="fragment_detail_button_subscription_paddingEnd">41dp</dimen>
+    <dimen name="fragment_detail_button_subscription_paddingBottom">13dp</dimen>
+    <dimen name="fragment_detail_textView_overview_title_marginStart">37dp</dimen>
+    <dimen name="fragment_detail_textView_overview_title_marginTop">43dp</dimen>
+    <dimen name="fragment_detail_textView_detailOverview_marginStart">37dp</dimen>
+    <dimen name="fragment_detail_textView_detailOverview_marginTop">18dp</dimen>
+    <dimen name="fragment_detail_textView_detailOverview_marginEnd">37dp</dimen>
+
+    <dimen name="fragment_list_imageView_search__marginStart">18dp</dimen>
+    <dimen name="fragment_list_textView_tvShowReminder_title_marginStart">8dp</dimen>
+    <dimen name="fragment_list_textView_tvShowReminder_title_marginEnd">8dp</dimen>
+    <dimen name="fragment_list_textView_subscription_marginStart">20dp</dimen>
+    <dimen name="fragment_list_textView_subscription_marginTop">20dp</dimen>
+    <dimen name="fragment_list_recyclerView_subscription_height">150dp</dimen>
+    <dimen name="fragment_list_recyclerView_subscription_marginTop">13dp</dimen>
+    <dimen name="fragment_list_recyclerView_subscription_marginStart">20dp</dimen>
+    <dimen name="fragment_list_recyclerView_subscription_marginEnd">20dp</dimen>
+    <dimen name="fragment_list_textView_all_title_marginStart">20dp</dimen>
+    <dimen name="fragment_list_textView_all_title_marginTop">25dp</dimen>
+    <dimen name="fragment_list_recyclerView_movies_marginTop">13dp</dimen>
+    <dimen name="fragment_list_recyclerView_movies_marginStart">20dp</dimen>
+    <dimen name="fragment_list_recyclerView_movies_marginEnd">20dp</dimen>
+
+    <dimen name="fragment_search_editText_search_marginStart">8dp</dimen>
+    <dimen name="fragment_search_editText_search_paddingStart">40dp</dimen>
+    <dimen name="fragment_search_editText_search_paddingTop">6dp</dimen>
+    <dimen name="fragment_search_editText_search_paddingBottom">6dp</dimen>
+    <dimen name="fragment_search_imageView_search_marginStart">8dp</dimen>
+    <dimen name="fragment_search_textView_cancelSearch_padding">8dp</dimen>
+
+    <dimen name="movie_item_item_parent_marginBottom">20dp</dimen>
+    <dimen name="movie_item_item_parent_height">156dp</dimen>
+
+    <dimen name="movie_item_textView_title_marginStart">16dp</dimen>
+    <dimen name="movie_item_textView_title_marginEnd">16dp</dimen>
+    <dimen name="movie_item_textView_title_marginBottom">15dp</dimen>
+    <dimen name="movie_item_layout_category_marginTop">8dp</dimen>
+    <dimen name="movie_item_layout_category_marginEnd">6dp</dimen>
+    <dimen name="movie_item_textView_category_marginStart">15dp</dimen>
+    <dimen name="movie_item_textView_category_marginTop">4dp</dimen>
+    <dimen name="movie_item_textView_category_marginEnd">14dp</dimen>
+    <dimen name="movie_item_textView_category_marginBottom">5dp</dimen>
+
+    <dimen name="search_item_imageView_posterSearch_width">48dp</dimen>
+    <dimen name="search_item_imageView_posterSearch_height">72dp</dimen>
+    <dimen name="search_item_imageView_posterSearch_marginStart">15dp</dimen>
+    <dimen name="search_item_imageView_posterSearch_marginTop">10dp</dimen>
+    <dimen name="search_item_textView_titleSearch_marginStart">20dp</dimen>
+    <dimen name="search_item_textView_titleSearch_marginTop">24dp</dimen>
+    <dimen name="search_item_textView_titleSearch_marginEnd">16dp</dimen>
+    <dimen name="search_item_button_subscriptionSearch_marginEnd">20dp</dimen>
+    <dimen name="search_item_separator_line_height">1dp</dimen>
+    <dimen name="search_item_separator_line_marginTop">10dp</dimen>
+    <dimen name="search_item_imageView_susbcriptionPoster_width">100dp</dimen>
+    <dimen name="search_item_imageView_susbcriptionPoster_height">150dp</dimen>
+    <dimen name="search_item_imageView_susbcriptionPoster_marginEnd">12dp</dimen>
+</resources>

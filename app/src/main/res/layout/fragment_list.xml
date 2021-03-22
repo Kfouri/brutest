@@ -20,16 +20,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_search"
-            android:layout_marginStart="18dp"/>
+            android:layout_marginStart="@dimen/fragment_list_imageView_search__marginStart"/>
 
         <TextView
+            android:id="@+id/textView_tvShowReminder_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/tv_show_reminder"
             style="@style/TextStyle5"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/fragment_list_textView_tvShowReminder_title_marginStart"
+            android:layout_marginEnd="@dimen/fragment_list_textView_tvShowReminder_title_marginEnd"
             android:gravity="center"
             android:layout_weight="1"/>
 
@@ -40,8 +41,8 @@
         style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/fragment_list_textView_subscription_marginStart"
+        android:layout_marginTop="@dimen/fragment_list_textView_subscription_marginTop"
         android:text="@string/fragment_list_subscribed_title"
         android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,21 +51,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_subscription"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="@dimen/fragment_list_recyclerView_subscription_height"
+        android:layout_marginTop="@dimen/fragment_list_recyclerView_subscription_marginTop"
+        android:layout_marginStart="@dimen/fragment_list_recyclerView_subscription_marginStart"
+        android:layout_marginEnd="@dimen/fragment_list_recyclerView_subscription_marginEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_subscription" />
 
     <TextView
         style="@style/TextStyle"
-        android:id="@+id/textView"
+        android:id="@+id/textView_all_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="@dimen/fragment_list_textView_all_title_marginStart"
+        android:layout_marginTop="@dimen/fragment_list_textView_all_title_marginTop"
         android:text="@string/fragment_list_all_title"
         android:textAllCaps="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,14 +75,14 @@
         android:id="@+id/recyclerView_movies"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="@dimen/fragment_list_recyclerView_movies_marginTop"
+        android:layout_marginStart="@dimen/fragment_list_recyclerView_movies_marginStart"
+        android:layout_marginEnd="@dimen/fragment_list_recyclerView_movies_marginEnd"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_all_title" />
 
     <ProgressBar
         android:id="@+id/progressBar"

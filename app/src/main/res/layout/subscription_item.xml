@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/imageView_susbcriptionPoster"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/search_item_imageView_susbcriptionPoster_width"
+        android:layout_height="@dimen/search_item_imageView_susbcriptionPoster_height"
         android:scaleType="fitXY"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="@dimen/search_item_imageView_susbcriptionPoster_marginEnd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

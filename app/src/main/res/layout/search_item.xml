@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/imageView_posterSearch"
-        android:layout_width="48dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/search_item_imageView_posterSearch_width"
+        android:layout_height="@dimen/search_item_imageView_posterSearch_height"
+        android:layout_marginStart="@dimen/search_item_imageView_posterSearch_marginStart"
+        android:layout_marginTop="@dimen/search_item_imageView_posterSearch_marginTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,9 +20,9 @@
         style="@style/TextStyle2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/search_item_textView_titleSearch_marginStart"
+        android:layout_marginTop="@dimen/search_item_textView_titleSearch_marginTop"
+        android:layout_marginEnd="@dimen/search_item_textView_titleSearch_marginEnd"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintEnd_toStartOf="@+id/button_subscriptionSearch"
@@ -33,16 +33,17 @@
         android:id="@+id/button_subscriptionSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="@dimen/search_item_button_subscriptionSearch_marginEnd"
         android:background="@drawable/background_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
+        android:id="@+id/separator_line"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="@dimen/search_item_separator_line_height"
+        android:layout_marginTop="@dimen/search_item_separator_line_marginTop"
         android:background="@color/warm_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

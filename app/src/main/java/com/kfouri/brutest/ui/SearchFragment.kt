@@ -1,5 +1,7 @@
 package com.kfouri.brutest.ui
 
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,7 +11,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -25,8 +29,8 @@ import com.kfouri.brutest.util.Status
 import com.kfouri.brutest.viewmodel.SearchViewModel
 import com.kfouri.brutest.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.android.synthetic.main.fragment_search.progressBar
 import java.util.*
+
 
 class SearchFragment: Fragment() {
 
@@ -46,10 +50,10 @@ class SearchFragment: Fragment() {
         activity?.applicationContext?.let { SearchAdapter(it) { movie: Movie -> subscriptionClicked(movie) } }
     }
 
-    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
-        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelper(ApiBuilder.apiService),dbHelper as DatabaseHelper)).get(SearchViewModel::class.java)
+        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelper(ApiBuilder.apiService), dbHelper as DatabaseHelper)).get(SearchViewModel::class.java)
         return view
     }
 
@@ -62,7 +66,7 @@ class SearchFragment: Fragment() {
             activity?.onBackPressed()
         }
 
-        editText_search.addTextChangedListener(object: TextWatcher {
+        editText_search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -76,7 +80,7 @@ class SearchFragment: Fragment() {
             override fun afterTextChanged(editable: Editable?) {
                 if (editable.toString().trim().isNotEmpty()) {
                     timer = Timer()
-                    timer?.schedule(object: TimerTask() {
+                    timer?.schedule(object : TimerTask() {
                         override fun run() {
                             Handler(Looper.getMainLooper()).post {
                                 adapter?.clearData()
@@ -152,4 +156,12 @@ class SearchFragment: Fragment() {
         viewModel.updateSubscription(movie)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val view: View? = activity?.currentFocus
+        if (view != null) {
+            val imm: InputMethodManager? = activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
 }
