@@ -3,28 +3,17 @@ package com.kfouri.brutest.adapter
 import kotlinx.android.synthetic.main.search_item.view.*
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kfouri.brutest.R
-import com.kfouri.brutest.database.DatabaseHelper
-import com.kfouri.brutest.database.model.Subscription
 import com.kfouri.brutest.model.Movie
-import com.kfouri.brutest.ui.SearchFragment
 import com.kfouri.brutest.ui.SearchFragmentDirections
 import com.kfouri.brutest.util.IMAGES_URL
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.lang.Exception
 
 
 class SearchAdapter(val context: Context, private val clickListener: (Movie) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

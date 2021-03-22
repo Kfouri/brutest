@@ -2,8 +2,6 @@ package com.kfouri.brutest.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import com.kfouri.brutest.R
 import androidx.navigation.findNavController
 
